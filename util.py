@@ -23,10 +23,11 @@ def drawText(surface, text, x, y, font, size, color):
     textRect.center = (x, y)
     surface.blit(textSurf, textRect)
 
-def drawDoodle(gameDisplay, tag, scale, x, y):
+def drawDoodle(gameDisplay, tag, scale, pos):
     if tag not in Status.cache:
         return
 
+    x, y = pos
     oscillate = 5
     surface = pygame.Surface((256, 256), pygame.SRCALPHA, 32)
     surface = surface.convert_alpha()
@@ -44,18 +45,28 @@ def drawDoodle(gameDisplay, tag, scale, x, y):
             nextX = stroke[i+1][0] + random.random() * oscillate
             nextY = stroke[i+1][1] + random.random() * oscillate
 
-            pygame.draw.line(surface, Config.white, (thisX, thisY), (nextX, nextY), 3)
+            pygame.draw.line(surface, Config.white, (thisX, thisY), (nextX, nextY), 5)
 
     surface = pygame.transform.scale(surface, (int(256 * scale), int(256 * scale)))
     gameDisplay.blit(surface, (x, y))
 
 
 
-def loadNdjson(tag):
+def loadNdjson(tag, scale, pos, index=None, immutable=False):
     try:
-        qd = QuickDrawData(True)
-        anvil = qd.get_drawing(tag)
-        Status.cache[tag] = list(anvil.strokes)
-        Status.objects.append(tag)
+        if tag not in Status.cache:
+            qd = QuickDrawData(True)
+            anvil = qd.get_drawing(tag, index)
+            Status.cache[tag] = list(anvil.strokes)
+            if not immutable:
+                Status.objects[tag] = [scale, pos[0], pos[1]]
+        if tag in Status.cache and not immutable:
+            Status.objects[tag] = [scale, pos[0], pos[1]]
     except:
         pass
+
+def conv(x, y):
+    return (Status.offset + x, y)
+
+def convR(x, y, w, h):
+    return (Status.offset + x, y, w, h)

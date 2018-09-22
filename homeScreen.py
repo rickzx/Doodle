@@ -20,15 +20,6 @@ def homeScreen():
 
         gameDisplay.fill(Config.black)
 
-        tag = "apple"
-
-        if tag in Status.cache:
-            drawDoodle(gameDisplay, tag, 0.5, 100, 100)
-        else:
-            loadNdjson(tag)
-            drawDoodle(gameDisplay, tag, 0.5, 100, 100)
-
-
         pygame.display.update()
         clock.tick(30)
 

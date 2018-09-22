@@ -151,6 +151,8 @@ def listen_print_loop(responses):
         if not result.alternatives:
             continue
 
+        Status.mode = "Loading"
+
         # Display the transcription of the top alternative.
         transcript = result.alternatives[0].transcript
 
@@ -167,9 +169,14 @@ def listen_print_loop(responses):
             num_chars_printed = len(transcript)
 
         else:
-            print(transcript + overwrite_chars)
+            #print(transcript + overwrite_chars)
+            print(transcript)
+            transcript.lower()
             entities_text(transcript)
-
+            if "left" in transcript:
+                Status.entitiesBuffer.append("left")
+            if "right" in transcript:
+                Status.entitiesBuffer.append("right")
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
