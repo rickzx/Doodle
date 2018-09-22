@@ -6,12 +6,12 @@ DoodleLab is a interactive software that builds a doodle world based on user's v
 DoodleLab's Youtube Demo Video: 
 # Dependencies
 To install and run DoodleLab locally on your machine, make sure you have the following packages installed:
-Python3 (We recommend the latest edition)__
-PyGame __
-Google Cloud Natural Language API__
-Google Cloud Speech API__
-quickdraw__
-Google Cloud SDK__
+Python3 (We recommend the latest edition)  
+PyGame  
+Google Cloud Natural Language API  
+Google Cloud Speech API  
+quickdraw  
+Google Cloud SDK  
 Also, to run DoodleLab, you must have a stable internet connection as well as a Google Cloud account, with associated private key. The private key is usually stored as a .json file that you can download online. 
 # Usage
 First, follow Google's tutorial to make sure that Google Cloud service is correctly installed and has correctly configured credentials.__
